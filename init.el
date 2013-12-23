@@ -2,11 +2,11 @@
 (add-to-list 'load-path (concat user-emacs-directory "lisp"))
 (add-to-list 'load-path (concat user-emacs-directory "plug"))
 
-;; ;; Custom functions
-;; (require 'insert-first-avalible-log-id)
-;; (load "~/.emacs.d/aux.el")
+;; Custom functions
+(load "aux.el")
 
 ;; Packages
+(load "emacs-rc-network.el")
 (load "emacs-rc-package.el")
 
 ;; Ido
@@ -95,9 +95,9 @@
 (add-hook 'erlang-mode-hook
           (lambda()
             (setq indent-tabs-mode nil)))
-;; (add-hook 'erlang-mode-hook
-;;           (lambda ()
-;;             (local-set-key (kbd "C-c i") 'insert-first-avalible-log-id)))
+(add-hook 'erlang-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c i") 'insert-first-avalible-log-id)))
 
 ;; Markdown
 ;; (add-to-list 'load-path (concat user-emacs-directory "plug/markdown-mode"))

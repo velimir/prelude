@@ -5,6 +5,7 @@
 (defun on-install-package (arg)
   (let ((package (intern (pop command-line-args-left))))
     (load "~/.emacs.d/lisp/emacs-rc-package.el")
+    (load "~/.emacs.d/lisp/emacs-rc-network.el")
     ;; Fix HTTP1/1.1 problems
     (setq url-http-attempt-keepalives nil)
     ;; fetch the list of packages available
