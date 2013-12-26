@@ -4,6 +4,7 @@ all:
 	./install-package.el --pkg cmake-mode
 	./install-package.el --pkg markdown-mode
 	./install-package.el --pkg solarized-theme
+	./install-package.el --pkg json-mode
 	git submodule update --init
 	make -C plug/edts all
 clean:
