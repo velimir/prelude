@@ -94,10 +94,10 @@
 (add-hook 'erlang-mode-hook 'albuild-compile)
 (add-hook 'erlang-mode-hook
           (lambda()
-            (setq indent-tabs-mode nil)))
-(add-hook 'erlang-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c i") 'insert-first-avalible-log-id)))
+            (setq indent-tabs-mode nil)
+            (column-enforce-mode)
+            (local-set-key (kbd "C-c i")
+                           'insert-first-avalible-log-id)))
 
 ;; Markdown
 ;; (add-to-list 'load-path (concat user-emacs-directory "plug/markdown-mode"))
