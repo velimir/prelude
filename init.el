@@ -95,7 +95,7 @@
 (add-hook 'erlang-mode-hook
           (lambda()
             (setq indent-tabs-mode nil)
-            (column-enforce-mode)
+            (column-enforce-mode 1)
             (local-set-key (kbd "C-c i")
                            'insert-first-avalible-log-id)))
 
@@ -110,6 +110,12 @@
 ;; Haskell
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 
+;; Python
+(add-hook 'python-mode-hook
+          (lambda()
+            (column-enforce-mode 1)
+            (jedi:setup)))
+
 ;; Appearance and behaviour
 (setq confirm-kill-emacs 'yes-or-no-p)
 
@@ -121,7 +127,6 @@
 (tooltip-mode -1)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
-(global-hl-line-mode 1)
 (show-paren-mode 1)
 (delete-selection-mode 1)
 
@@ -133,8 +138,9 @@
 ;; Key binding
 (global-set-key (kbd "C-?") 'help-command)
 (global-set-key (kbd "M-?") 'mark-paragraph)
-(global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-h") 'backward-kill-word)
+(global-set-key (kbd "C-h") 'delete-backward-char)
+(define-key isearch-mode-map (kbd "C-h") 'isearch-delete-char)
 
 ;; Maximaze window on startup
 (when (eq system-type 'windows-nt)
