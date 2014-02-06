@@ -12,7 +12,7 @@
   (save-excursion
     (goto-char (point-min))
     (search-forward-regexp
-     "errors?:?\\s-?[[:digit:]]+\\s-?-\\s-?\\([[:digit:]]+\\)\\s-*")
+     "[errors?\\|range]:?\\s-?[[:digit:]]+\\s-?-\\s-?\\([[:digit:]]+\\)\\s-*")
     (match-string 1)))
 
 (defun next-available (first-avl log-max)
