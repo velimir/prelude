@@ -135,6 +135,10 @@
 (load-theme 'solarized-dark t)
 (set-frame-font "Ubuntu Mono-12:antialias=1")
 
+;; Window number
+(require 'window-number)
+(window-number-meta-mode 1)
+
 ;; Key binding
 (global-set-key (kbd "C-?") 'help-command)
 (global-set-key (kbd "M-?") 'mark-paragraph)

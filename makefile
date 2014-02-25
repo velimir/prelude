@@ -8,6 +8,7 @@ all:
 	./install-package.el --pkg column-enforce-mode
 	./install-package.el --pkg magit
 	./install-package.el --pkg jedi
+	./install-package.el --pkg window-number
 	git submodule update --init
 	make -C plug/edts all
 clean:
