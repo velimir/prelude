@@ -114,6 +114,7 @@
 (add-hook 'python-mode-hook
           (lambda()
             (column-enforce-mode 1)
+            (setq jedi:use-shortcuts t)
             (jedi:setup)))
 
 ;; Appearance and behaviour
