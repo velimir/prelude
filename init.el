@@ -70,15 +70,13 @@
   ;; set compile-command
   (unless (or (file-exists-p "Makefile")
               (file-exists-p "makefile"))
-    (set (make-local-variable 'compile-command)
-         (let* ((config-file (find-file-upward "albuild.config"))
-                (prefix (if (and config-file
-                                 (file-equal-p default-directory config-file))
-                            ""
-                          (concat "cd "
-                                  (file-name-directory config-file)
-                                  " && "))))
-           (concat prefix "albuild clean && albuild build && albuild test-oldunit")))))
+    (let ((config-file (find-file-upward "albuild.config")))
+      (when config-file
+        (set (make-local-variable 'compile-command)
+             "albuild clean && albuild build && albuild test-oldunit")
+        (unless (file-equal-p default-directory config-file)
+          (set (make-local-variable 'default-directory)
+               (file-name-directory config-file)))))))
 
 (defun find-file-upward (filename &optional dir stop)
   (let*
