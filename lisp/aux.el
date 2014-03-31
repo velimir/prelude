@@ -28,7 +28,7 @@
       (let ((next-log-id (1+ (string-to-number last-used))))
         (if (> next-log-id (string-to-number log-max))
             (error "max log id exceeded")
-          (int-w-format next-log-id (length log-max))))
+          (int-w-format next-log-id (length last-used))))
     (error "last id not found")))
 
 
