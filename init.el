@@ -73,10 +73,8 @@
     (let ((config-file (find-file-upward "albuild.config")))
       (when config-file
         (set (make-local-variable 'compile-command)
-             "albuild clean && albuild build && albuild test-oldunit")
-        (unless (file-equal-p default-directory config-file)
-          (set (make-local-variable 'default-directory)
-               (file-name-directory config-file)))))))
+             (concat (concat "cd " (file-name-directory config-file) " && ")
+                     "albuild clean && albuild build && albuild test-oldunit"))))))
 
 (defun find-file-upward (filename &optional dir stop)
   (let*
