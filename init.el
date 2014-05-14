@@ -128,6 +128,9 @@
        (define-key yaml-mode-map "\C-m" 'newline-and-indent)
        (flymake-yaml-load)))
 
+;; Haml
+(add-hook 'haml-mode-hook 'flymake-haml-load)
+
 
 ;; Appearance and behaviour
 (setq confirm-kill-emacs 'yes-or-no-p)

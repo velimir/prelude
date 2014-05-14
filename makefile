@@ -12,6 +12,8 @@ all:
 	./install-package.el --pkg yasnippet
 	./install-package.el --pkg yaml-mode
 	./install-package.el --pkg ruby-tools
+	./install-package.el --pkg haml-mode
+	./install-package.el --pkg flymake-haml
 	git submodule update --init
 	make -C plug/edts all
 clean:
