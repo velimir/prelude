@@ -82,9 +82,10 @@
        (target-file (expand-file-name filename dir-path))
        (stop-path (if stop stop (expand-file-name "~"))))
     (if (file-exists-p target-file)
-	target-file
-      (unless (file-equal-p dir-path stop-path)
-	(find-file-upward filename (expand-file-name ".." dir-path))))))
+        target-file
+      (unless (or (file-equal-p dir-path stop-path)
+                  (file-equal-p dir-path "/"))
+        (find-file-upward filename (expand-file-name ".." dir-path))))))
 
 ;; Erlang hooks
 (add-hook 'erlang-mode-hook 'albuild-compile)
@@ -112,6 +113,22 @@
             (column-enforce-mode 1)
             (setq jedi:use-shortcuts t)
             (jedi:setup)))
+
+;; yasnippet
+(require 'yasnippet)
+(yas-reload-all)
+
+;; Ruby
+(add-hook 'ruby-mode-hook
+          '(lambda ()
+             (yas-minor-mode)))
+
+;; Yaml
+(add-hook 'yaml-mode-hook
+    '(lambda ()
+       (define-key yaml-mode-map "\C-m" 'newline-and-indent)
+       (flymake-yaml-load)))
+
 
 ;; Appearance and behaviour
 (setq confirm-kill-emacs 'yes-or-no-p)

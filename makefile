@@ -9,6 +9,8 @@ all:
 	./install-package.el --pkg magit
 	./install-package.el --pkg jedi
 	./install-package.el --pkg window-number
+	./install-package.el --pkg yasnippet
+	./install-package.el --pkg yaml-mode
 	git submodule update --init
 	make -C plug/edts all
 clean:
