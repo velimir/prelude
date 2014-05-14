@@ -11,6 +11,7 @@ all:
 	./install-package.el --pkg window-number
 	./install-package.el --pkg yasnippet
 	./install-package.el --pkg yaml-mode
+	./install-package.el --pkg ruby-tools
 	git submodule update --init
 	make -C plug/edts all
 clean:

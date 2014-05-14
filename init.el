@@ -119,9 +119,8 @@
 (yas-reload-all)
 
 ;; Ruby
-(add-hook 'ruby-mode-hook
-          '(lambda ()
-             (yas-minor-mode)))
+(require 'ruby-tools)
+(add-hook 'ruby-mode-hook 'yas-minor-mode-on)
 
 ;; Yaml
 (add-hook 'yaml-mode-hook
