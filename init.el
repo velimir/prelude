@@ -9,12 +9,20 @@
 (load "emacs-rc-network.el")
 (load "emacs-rc-package.el")
 
+;; Projectile
+(projectile-global-mode)
+(add-hook 'projectile-mode-hook 'projectile-rails-on)
+
 ;; Ido
 (require 'ido)
+(require 'flx-ido)
 
-(ido-mode t)
+(ido-mode 1)
+(ido-everywhere 1)
 (setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-use-faces nil)
 
 ;; Buffers
 (require 'uniquify)
@@ -121,6 +129,7 @@
 ;; Ruby
 (require 'ruby-tools)
 (add-hook 'ruby-mode-hook 'yas-minor-mode-on)
+(add-hook 'ruby-mode-hook 'robe-mode)
 
 ;; Yaml
 (add-hook 'yaml-mode-hook
