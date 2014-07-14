@@ -18,6 +18,8 @@ all:
 	./install-package.el --pkg projectile
 	./install-package.el --pkg projectile-rails
 	./install-package.el --pkg flx-ido
+	./install-package.el --pkg w3m
+	./install-package.el --pkg ix
 	git submodule update --init
 	make -C plug/edts all
 clean:
