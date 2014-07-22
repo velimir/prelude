@@ -20,6 +20,8 @@ all:
 	./install-package.el --pkg flx-ido
 	./install-package.el --pkg w3m
 	./install-package.el --pkg ix
+	./install-package.el --pkg feature-mode
+	./install-package.el --pkg coffee-mode
 	git submodule update --init
 	make -C plug/edts all
 clean:
