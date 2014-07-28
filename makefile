@@ -24,6 +24,7 @@ all:
 	./install-package.el --pkg feature-mode
 	./install-package.el --pkg coffee-mode
 	./install-package.el --pkg company
+	./install-package.el --pkg rspec-mode
 	git submodule update --init
 	make -C plug/edts all
 clean:
