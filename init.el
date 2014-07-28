@@ -128,8 +128,12 @@
 
 ;; Ruby
 (require 'ruby-tools)
+(require 'company)
 (add-hook 'ruby-mode-hook 'yas-minor-mode-on)
 (add-hook 'ruby-mode-hook 'robe-mode)
+(add-hook 'ruby-mode-hook 'company-mode)
+(add-hook 'ruby-mode-hook 'flymake-ruby-load)
+(push 'company-robe company-backends)
 
 ;; Yaml
 (add-hook 'yaml-mode-hook

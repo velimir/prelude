@@ -13,6 +13,7 @@ all:
 	./install-package.el --pkg yaml-mode
 	./install-package.el --pkg ruby-tools
 	./install-package.el --pkg robe
+    ./install-package.el --pkg flymake-ruby
 	./install-package.el --pkg haml-mode
 	./install-package.el --pkg flymake-haml
 	./install-package.el --pkg projectile
@@ -22,6 +23,7 @@ all:
 	./install-package.el --pkg ix
 	./install-package.el --pkg feature-mode
 	./install-package.el --pkg coffee-mode
+	./install-package.el --pkg company
 	git submodule update --init
 	make -C plug/edts all
 clean:
