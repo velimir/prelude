@@ -1,3 +1,7 @@
+;; Custom
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(load custom-file)
+
 ;; Imports
 (add-to-list 'load-path (concat user-emacs-directory "lisp"))
 (add-to-list 'load-path (concat user-emacs-directory "plug"))
@@ -191,7 +195,3 @@
 ;; Enable functions
 (put 'narrow-to-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
-
-;; Custom
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(load custom-file)
