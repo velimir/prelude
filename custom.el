@@ -13,7 +13,8 @@
  '(foreground-color "#839496")
  '(indent-tabs-mode nil)
  '(safe-local-variable-values (quote ((allout-layout . t))))
- '(tab-width 4))
+ '(tab-width 4)
+ '(edts-inhibit-package-check t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
