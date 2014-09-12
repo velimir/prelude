@@ -68,6 +68,10 @@
 (setq erlang-man-root-dir (expand-file-name "man" erlang-root-dir))
 (require 'erlang-start)
 
+;; Elixir
+(require 'elixir-mix)
+(global-elixir-mix-mode)
+
 (add-to-list 'load-path "~/.emacs.d/plug/edts")
 (require 'edts-start)
 
