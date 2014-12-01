@@ -28,6 +28,24 @@
 ;; disable ido faces to see flx highlights.
 (setq ido-use-faces nil)
 
+(require 'smex)
+(smex-initialize)
+
+(eval-after-load 'smex
+  `(defun smex-prepare-ido-bindings ()
+     (define-key ido-completion-map (kbd "M-h") 'backward-kill-word)
+     (define-key ido-completion-map (kbd "C-h") 'delete-backward-char)
+     (define-key ido-completion-map (kbd "TAB") 'minibuffer-complete)
+     (define-key ido-completion-map (kbd "C-? f") 'smex-describe-function)
+     (define-key ido-completion-map (kbd "C-? w") 'smex-where-is)
+     (define-key ido-completion-map (kbd "C-.") 'smex-find-function)
+     (define-key ido-completion-map (kbd "C-a") 'move-beginning-of-line)))
+
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+
 ;; Buffers
 (require 'uniquify)
 
