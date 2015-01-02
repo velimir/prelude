@@ -92,7 +92,8 @@
 
 ;; Elixir
 (require 'elixir-mix)
-(global-elixir-mix-mode)
+(require 'alchemist)
+(add-hook 'elixir-mode-hook 'yas-minor-mode-on)
 
 (add-to-list 'load-path "~/.emacs.d/plug/edts")
 (require 'edts-start)

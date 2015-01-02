@@ -29,6 +29,7 @@ all:
 	./install-package.el --pkg elixir-mode
 	./install-package.el --pkg elixir-mix
 	./install-package.el --pkg elixir-yasnippets
+	./install-package.el --pkg alchemist
 	./install-package.el --pkg smex
 	git submodule update --init
 	make -C plug/edts all
