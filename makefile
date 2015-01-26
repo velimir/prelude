@@ -31,6 +31,7 @@ all:
 	./install-package.el --pkg elixir-yasnippets
 	./install-package.el --pkg alchemist
 	./install-package.el --pkg smex
+	./install-package.el --pkg format-sql
 	git submodule update --init
 	make -C plug/edts all
 clean:
