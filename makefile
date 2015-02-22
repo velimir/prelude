@@ -3,7 +3,7 @@
 all:
 	./install-package.el --pkg cmake-mode
 	./install-package.el --pkg markdown-mode
-	./install-package.el --pkg solarized-theme
+	./install-package.el --pkg color-theme-solarized
 	./install-package.el --pkg json-mode
 	./install-package.el --pkg column-enforce-mode
 	./install-package.el --pkg magit
