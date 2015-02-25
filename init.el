@@ -188,8 +188,8 @@
 
 (server-start)
 
-(load-theme 'solarized-dark t)
-(set-frame-font "Ubuntu Mono-12:antialias=1")
+(load-theme 'solarized t)
+;;(set-frame-font "Ubuntu Mono-12:antialias=1")
 
 ;; Window number
 (require 'window-number)
