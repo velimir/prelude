@@ -26,6 +26,7 @@ all:
 	./install-package.el --pkg company
 	./install-package.el --pkg rspec-mode
 	./install-package.el --pkg wgrep
+	./install-package.el --pkg erlang
 	./install-package.el --pkg elixir-mode
 	./install-package.el --pkg elixir-mix
 	./install-package.el --pkg elixir-yasnippets
