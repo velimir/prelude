@@ -11,6 +11,7 @@
  '(frame-background-mode (quote dark))
  '(indent-tabs-mode nil)
  '(safe-local-variable-values (quote ((allout-layout . t))))
+ '(solarized-termcolors 256)
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
