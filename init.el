@@ -1,222 +1,142 @@
-;; Custom
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(load custom-file)
+;;; init.el --- Prelude's configuration entry point.
+;;
+;; Copyright (c) 2011-2017 Bozhidar Batsov
+;;
+;; Author: Bozhidar Batsov <bozhidar@batsov.com>
+;; URL: http://batsov.com/prelude
+;; Version: 1.0.0
+;; Keywords: convenience
 
-;; Imports
-(add-to-list 'load-path (concat user-emacs-directory "lisp"))
-(add-to-list 'load-path (concat user-emacs-directory "plug"))
+;; This file is not part of GNU Emacs.
 
-;; Custom functions
-(load "aux.el")
+;;; Commentary:
 
-;; Packages
-(load "emacs-rc-network.el")
-(load "emacs-rc-package.el")
+;; This file simply sets up the default load path and requires
+;; the various modules defined within Emacs Prelude.
 
-;; Projectile
-(projectile-global-mode)
-(add-hook 'projectile-mode-hook 'projectile-rails-on)
+;;; License:
 
-;; Ido
-(require 'ido)
-(require 'flx-ido)
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License
+;; as published by the Free Software Foundation; either version 3
+;; of the License, or (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.  If not, write to the
+;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
 
-(ido-mode 1)
-(ido-everywhere 1)
-(setq ido-enable-flex-matching t)
-(flx-ido-mode 1)
-;; disable ido faces to see flx highlights.
-(setq ido-use-faces nil)
+;;; Code:
 
-(require 'smex)
-(smex-initialize)
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+;(package-initialize)
 
-(eval-after-load 'smex
-  `(defun smex-prepare-ido-bindings ()
-     (define-key ido-completion-map (kbd "M-h") 'backward-kill-word)
-     (define-key ido-completion-map (kbd "C-h") 'delete-backward-char)
-     (define-key ido-completion-map (kbd "TAB") 'minibuffer-complete)
-     (define-key ido-completion-map (kbd "C-? f") 'smex-describe-function)
-     (define-key ido-completion-map (kbd "C-? w") 'smex-where-is)
-     (define-key ido-completion-map (kbd "C-.") 'smex-find-function)
-     (define-key ido-completion-map (kbd "C-a") 'move-beginning-of-line)))
+(defvar current-user
+  (getenv
+   (if (equal system-type 'windows-nt) "USERNAME" "USER")))
 
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+(message "Prelude is powering up... Be patient, Master %s!" current-user)
 
+(when (version< emacs-version "24.4")
+  (error "Prelude requires at least GNU Emacs 24.4, but you're running %s" emacs-version))
 
-;; Buffers
-(require 'uniquify)
+;; Always load newest byte code
+(setq load-prefer-newer t)
 
-(setq uniquify-buffer-name-style 'post-forward)
+(defvar prelude-dir (file-name-directory load-file-name)
+  "The root dir of the Emacs Prelude distribution.")
+(defvar prelude-core-dir (expand-file-name "core" prelude-dir)
+  "The home of Prelude's core functionality.")
+(defvar prelude-modules-dir (expand-file-name  "modules" prelude-dir)
+  "This directory houses all of the built-in Prelude modules.")
+(defvar prelude-personal-dir (expand-file-name "personal" prelude-dir)
+  "This directory is for your personal configuration.
 
-;; EDiff
-(require 'ediff)
+Users of Emacs Prelude are encouraged to keep their personal configuration
+changes in this directory.  All Emacs Lisp files there are loaded automatically
+by Prelude.")
+(defvar prelude-personal-preload-dir (expand-file-name "preload" prelude-personal-dir)
+  "This directory is for your personal configuration, that you want loaded before Prelude.")
+(defvar prelude-vendor-dir (expand-file-name "vendor" prelude-dir)
+  "This directory houses packages that are not yet available in ELPA (or MELPA).")
+(defvar prelude-savefile-dir (expand-file-name "savefile" prelude-dir)
+  "This folder stores all the automatically generated save/history-files.")
+(defvar prelude-modules-file (expand-file-name "prelude-modules.el" prelude-dir)
+  "This files contains a list of modules that will be loaded by Prelude.")
 
-(setq ediff-split-window-function 'split-window-horizontally)
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(unless (file-exists-p prelude-savefile-dir)
+  (make-directory prelude-savefile-dir))
 
-;; CMake
-(require 'cmake-mode)
+(defun prelude-add-subfolders-to-load-path (parent-dir)
+ "Add all level PARENT-DIR subdirs to the `load-path'."
+ (dolist (f (directory-files parent-dir))
+   (let ((name (expand-file-name f parent-dir)))
+     (when (and (file-directory-p name)
+                (not (string-prefix-p "." f)))
+       (add-to-list 'load-path name)
+       (prelude-add-subfolders-to-load-path name)))))
 
-(setq auto-mode-alist
-      (append '(("CMakeLists\\.txt\\'" . cmake-mode)
-                ("\\.cmake\\'" . cmake-mode))
-              auto-mode-alist))
+;; add Prelude's directories to Emacs's `load-path'
+(add-to-list 'load-path prelude-core-dir)
+(add-to-list 'load-path prelude-modules-dir)
+(add-to-list 'load-path prelude-vendor-dir)
+(prelude-add-subfolders-to-load-path prelude-vendor-dir)
 
-;; Html
-(add-hook 'html-mode-hook
-          (lambda()
-            (setq sgml-basic-offset 4)
-            (setq indent-tabs-mode t)))
+;; reduce the frequency of garbage collection by making it happen on
+;; each 50MB of allocated data (the default is on every 0.76MB)
+(setq gc-cons-threshold 50000000)
 
-(add-hook 'nxml-mode-hook
-	  (lambda()
-	    (setq nxml-child-indent 4)
-	    (setq indent-tabs-mode nil)))
+;; warn when opening files bigger than 100MB
+(setq large-file-warning-threshold 100000000)
 
-;; Erlang
-;; TODO: move to separate module
-(setq erlang-root-dir
-      (let ((otp-path (getenv "OTP_PATH")))
-			(if (null otp-path)
-			    "/usr/lib/erlang"
-			  otp-path)))
-(add-to-list 'load-path
-	     (car (file-expand-wildcards
-		   (expand-file-name "lib/tools-*/emacs" erlang-root-dir))))
-(add-to-list 'exec-path (expand-file-name "bin" erlang-root-dir))
-(setq erlang-man-root-dir (expand-file-name "man" erlang-root-dir))
-(require 'erlang-start)
+;; preload the personal settings from `prelude-personal-preload-dir'
+(when (file-exists-p prelude-personal-preload-dir)
+  (message "Loading personal configuration files in %s..." prelude-personal-preload-dir)
+  (mapc 'load (directory-files prelude-personal-preload-dir 't "^[^#\.].*el$")))
 
-;; Elixir
-(require 'elixir-mix)
-(require 'alchemist)
-(add-hook 'elixir-mode-hook 'yas-minor-mode-on)
+(message "Loading Prelude's core...")
 
-(add-to-list 'load-path "~/.emacs.d/plug/edts")
-(require 'edts-start)
+;; the core stuff
+(require 'prelude-packages)
+(require 'prelude-custom)  ;; Needs to be loaded before core, editor and ui
+(require 'prelude-ui)
+(require 'prelude-core)
+(require 'prelude-mode)
+(require 'prelude-editor)
+(require 'prelude-global-keybindings)
 
-;; Erlang-compile
-(require 'compile)
+;; OSX specific settings
+(when (eq system-type 'darwin)
+  (require 'prelude-osx))
 
-(defun albuild-compile ()
-  ;; set compile-command
-  (unless (or (file-exists-p "Makefile")
-              (file-exists-p "makefile"))
-    (let ((config-file (find-file-upward "albuild.config")))
-      (when config-file
-        (set (make-local-variable 'compile-command)
-             (concat (concat "cd " (file-name-directory config-file) " && ")
-                     "albuild clean && albuild build && albuild test-oldunit"))))))
+(message "Loading Prelude's modules...")
 
-(defun find-file-upward (filename &optional dir stop)
-  (let*
-      ((dir-path (if dir dir default-directory))
-       (target-file (expand-file-name filename dir-path))
-       (stop-path (if stop stop (expand-file-name "~"))))
-    (if (file-exists-p target-file)
-        target-file
-      (unless (or (file-equal-p dir-path stop-path)
-                  (file-equal-p dir-path "/"))
-        (find-file-upward filename (expand-file-name ".." dir-path))))))
+;; the modules
+(if (file-exists-p prelude-modules-file)
+    (load prelude-modules-file)
+  (message "Missing modules file %s" prelude-modules-file)
+  (message "You can get started by copying the bundled example file"))
 
-;; Erlang hooks
-(add-hook 'erlang-mode-hook 'albuild-compile)
-(add-hook 'erlang-mode-hook
-          (lambda()
-            (setq indent-tabs-mode nil)
-            (column-enforce-mode 1)
-            (local-set-key (kbd "C-c i")
-                           'insert-first-avalible-log-id)))
+;; config changes made through the customize UI will be store here
+(setq custom-file (expand-file-name "custom.el" prelude-personal-dir))
 
-;; Markdown
-;; (add-to-list 'load-path (concat user-emacs-directory "plug/markdown-mode"))
-(autoload 'markdown-mode "markdown-mode"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+;; load the personal settings (this includes `custom-file')
+(when (file-exists-p prelude-personal-dir)
+  (message "Loading personal configuration files in %s..." prelude-personal-dir)
+  (mapc 'load (directory-files prelude-personal-dir 't "^[^#\.].*el$")))
 
-;; Haskell
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+(message "Prelude is ready to do thy bidding, Master %s!" current-user)
 
-;; Python
-(add-hook 'python-mode-hook
-          (lambda()
-            (column-enforce-mode 1)
-            (setq jedi:use-shortcuts t)
-            (jedi:setup)))
+(prelude-eval-after-init
+ ;; greet the use with some useful tip
+ (run-at-time 5 nil 'prelude-tip-of-the-day))
 
-;; yasnippet
-(require 'yasnippet)
-(yas-reload-all)
-
-;; Ruby
-(require 'ruby-tools)
-(require 'company)
-(add-hook 'ruby-mode-hook 'yas-minor-mode-on)
-(add-hook 'ruby-mode-hook 'robe-mode)
-(add-hook 'ruby-mode-hook 'company-mode)
-(add-hook 'ruby-mode-hook 'flymake-ruby-load)
-(push 'company-robe company-backends)
-
-;; Yaml
-(add-hook 'yaml-mode-hook
-    '(lambda ()
-       (define-key yaml-mode-map "\C-m" 'newline-and-indent)
-       (flymake-yaml-load)))
-
-;; Haml
-(add-hook 'haml-mode-hook 'flymake-haml-load)
-
-
-;; Appearance and behaviour
-(setq confirm-kill-emacs 'yes-or-no-p)
-
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
-
-(column-number-mode 1)
-(tool-bar-mode -1)
-(tooltip-mode -1)
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
-(show-paren-mode 1)
-(delete-selection-mode 1)
-
-(server-start)
-
-(load-theme 'solarized t)
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            (let ((mode (if (display-graphic-p frame) 'light 'dark)))
-              (set-frame-parameter frame 'background-mode mode)
-              (set-terminal-parameter frame 'background-mode mode))
-            (enable-theme 'solarized)))
-;;(set-frame-font "Ubuntu Mono-12:antialias=1")
-
-;; Window number
-(require 'window-number)
-(window-number-meta-mode 1)
-
-;; Key binding
-(global-set-key (kbd "C-?") 'help-command)
-(global-set-key (kbd "M-?") 'mark-paragraph)
-(global-set-key (kbd "M-h") 'backward-kill-word)
-(global-set-key (kbd "C-h") 'delete-backward-char)
-(define-key isearch-mode-map (kbd "C-h") 'isearch-delete-char)
-
-;; Maximaze window on startup
-(when (eq system-type 'windows-nt)
-  (defun w32-maximize-frame ()
-    "maximize the current frame"
-    (interactive)
-    (w32-send-sys-command 61488))
-  (add-hook 'window-setup-hook 'w32-maximize-frame t))
-
-
-;; Enable functions
-(put 'narrow-to-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
+;;; init.el ends here

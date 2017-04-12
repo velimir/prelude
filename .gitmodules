@@ -1,3 +1,0 @@
-[submodule "plug/edts"]
-	path = plug/edts
-	url = git@github.com:tjarvstrand/edts.git
