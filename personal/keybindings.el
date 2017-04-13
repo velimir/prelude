@@ -1,6 +1,4 @@
 ;; Key bindings
-(setq help-char nil)
-
 (global-set-key (kbd "M-?") 'mark-paragraph)
 (global-set-key (kbd "M-h") 'backward-kill-word)
 (global-set-key (kbd "C-h") 'delete-backward-char)
