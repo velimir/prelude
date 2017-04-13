@@ -8,7 +8,7 @@
 (setq confirm-kill-emacs 'yes-or-no-p)
 
 ;; set beacon colour to match zenburn theme
-(setq beacon-color "#7cac7c")
+(setq beacon-color "#5f5f5f")
 
 ;; do not highlit current line
 (global-hl-line-mode -1)
