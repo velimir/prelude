@@ -7,3 +7,18 @@
 (with-eval-after-load 'helm
   (define-key helm-map (kbd "M-h") 'backward-kill-word)
   (define-key helm-map (kbd "C-h") 'delete-backward-char))
+
+
+;; Start eshell or switch to it if it's active.
+(global-set-key (kbd "C-x m") 'shell)
+
+;; Start a new shell even if one is active.
+(global-set-key (kbd "C-x M")
+                (lambda ()
+                  (interactive)
+                  (let ((current-prefix-arg 4)) ;; emulate C-u
+                    (call-interactively 'shell) ;; invoke shell interactively
+                    )))
+
+;; Start a eshell if you prefer that.
+(global-set-key (kbd "C-x M-m") 'eshell)
