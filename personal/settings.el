@@ -7,8 +7,8 @@
 ;; Always ask before closing emacs
 (setq confirm-kill-emacs 'yes-or-no-p)
 
-;; don't blink
-(beacon-mode -1)
+;; set beacon colour to match zenburn theme
+(setq beacon-color "#7cac7c")
 
 ;; do not highlit current line
 (global-hl-line-mode -1)
