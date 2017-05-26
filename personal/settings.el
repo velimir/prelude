@@ -22,8 +22,3 @@
 (setq helm-move-to-line-cycle-in-source nil)
 
 (setq anzu-minimum-input-length 3)
-
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (when (> (buffer-size) 40000)
-              (turn-off-show-smartparens-mode))))
