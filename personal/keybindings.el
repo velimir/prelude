@@ -31,3 +31,7 @@
 
 ;; Start a eshell if you prefer that.
 (global-set-key (kbd "C-x M-m") 'eshell)
+
+
+(global-set-key [remap move-beginning-of-line]
+                'move-beginning-of-line)
