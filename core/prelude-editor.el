@@ -202,8 +202,6 @@ The body of the advice is in BODY."
 ;; keep in mind known issues with zsh - see emacs wiki
 (setq tramp-default-method "ssh")
 
-(set-default 'imenu-auto-rescan t)
-
 ;; flyspell-mode does spell-checking on the fly as you type
 (require 'flyspell)
 (setq ispell-program-name "aspell" ; use aspell instead of ispell
