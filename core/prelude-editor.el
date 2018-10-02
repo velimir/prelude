@@ -189,11 +189,6 @@ The body of the advice is in BODY."
 (volatile-highlights-mode t)
 (diminish 'volatile-highlights-mode)
 
-;; note - this should be after volatile-highlights is required
-;; add the ability to cut the current line, without marking it
-(require 'rect)
-(crux-with-region-or-line kill-region)
-
 ;; tramp, for sudo access
 (require 'tramp)
 ;; keep in mind known issues with zsh - see emacs wiki
