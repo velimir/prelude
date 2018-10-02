@@ -357,7 +357,7 @@ indent yanked text (with prefix arg don't indent)."
   ;; we don't want to mess with child modes such as grep-mode, ack, ag, etc
   (when (eq major-mode 'compilation-mode)
     (let ((inhibit-read-only t))
-      (ansi-color-apply-on-region (point-min) (point-max)))))
+      (ansi-color-apply-on-region compilation-filter-start (point-max)))))
 
 (require 'compile)
 (setq compilation-ask-about-save nil  ; Just save before compiling
