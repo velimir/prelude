@@ -360,10 +360,6 @@ indent yanked text (with prefix arg don't indent)."
 (add-hook 'dired-mode-hook 'diff-hl-dired-mode-unless-remote)
 (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
-;; easy-kill
-(global-set-key [remap kill-ring-save] 'easy-kill)
-(global-set-key [remap mark-sexp] 'easy-mark)
-
 ;; operate-on-number
 (require 'operate-on-number)
 (require 'smartrep)
