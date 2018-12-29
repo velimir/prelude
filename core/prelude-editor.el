@@ -357,7 +357,7 @@ indent yanked text (with prefix arg don't indent)."
 
 ;; diff-hl
 (global-diff-hl-mode +1)
-(add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+(add-hook 'dired-mode-hook 'diff-hl-dired-mode-unless-remote)
 (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
 ;; easy-kill
