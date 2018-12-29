@@ -14,7 +14,7 @@
    "--exclude='EIFGEN'"
    "--exclude=logs"
    "--exclude=.eunit"
-   "--etags-include=/Users/gstarinkin/otp/20.1/TAGS"
+   "--etags-include=/Users/gstarinkin/otp/21.1/TAGS"
    "--links=no"))
 
 (defun my-erlang-ctags ()
