@@ -35,6 +35,8 @@
 
 (prelude-require-packages '(elixir-mode alchemist))
 
+(require 'alchemist)
+
 (provide 'prelude-elixir)
 
 ;;; prelude-elixir.el ends here
