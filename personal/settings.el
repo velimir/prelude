@@ -22,3 +22,6 @@
 (setq helm-move-to-line-cycle-in-source nil)
 
 (setq anzu-minimum-input-length 3)
+
+;; whitespace
+(setq whitespace-style '(face trailing empty space-after-tab space-before-tab))
