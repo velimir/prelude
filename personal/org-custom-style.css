@@ -1,0 +1,6 @@
+* {
+  font-family: helvetica;
+}
+code, pre.example, pre.src {
+  font-family: Consolas, monospace;
+}
