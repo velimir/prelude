@@ -25,3 +25,7 @@
 
 ;; whitespace
 (setq whitespace-style '(face trailing empty space-after-tab space-before-tab))
+
+;; open shell in the same window
+(add-to-list 'display-buffer-alist
+             `(,(regexp-quote "*shell") display-buffer-same-window))
