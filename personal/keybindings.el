@@ -1,9 +1,12 @@
 ;; Key bindings
+(setq mac-command-modifier 'super)
+(setq mac-option-modifier 'meta)
+
 (global-set-key (kbd "M-?") 'mark-paragraph)
 (global-set-key (kbd "M-h") 'backward-kill-word)
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (define-key isearch-mode-map (kbd "C-h") 'isearch-delete-char)
-(define-key org-mode-map (kbd "M-h") 'backward-kill-word)
+;; (define-key org-mode-map (kbd "M-h") 'backward-kill-word)
 
 (with-eval-after-load 'helm
   (define-key helm-map (kbd "M-h") 'backward-kill-word)
