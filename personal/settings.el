@@ -29,3 +29,5 @@
 ;; open shell in the same window
 (add-to-list 'display-buffer-alist
              `(,(regexp-quote "*shell") display-buffer-same-window))
+
+(normal-erase-is-backspace-mode 1)
